@@ -6,46 +6,49 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-  form: FormGroup;
-  submited = false;
+  form: FormGroup
+  submitted = false
 
-  constructor(public auth: AuthService, private router: Router) {
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+  ) { }
+
+  ngOnInit() {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-    });
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+     })
   }
 
-  submit() {
-    if (this.form.invalid) {
+  submit() { 
+    if (  this.form.invalid ) {
       return;
     }
 
-    this.submited = true;
+    this.submitted = true
 
     const user = {
       email: this.form.value.email,
       password: this.form.value.password,
-      returnSecureToken: true,
-    };
+      returnSecureToken: true
+    }
 
-    this.auth.login(user).subscribe(
-      (res) => {
-        this.form.reset;
-        this.router.navigate(['/admin', 'dashboard']);
-        this.submited = false;
-      },
-      () => {
-        this.submited = false;
-      }
-    );
+    this.auth.login(user).subscribe( res => {
+      console.log(res)
+      this.form.reset
+      this.router.navigate(['/admin','dashboard'])
+      this.submitted = false
+
+    }, () => {
+      this.submitted = false
+    }
+    
+    )
+    
   }
 
-  ngOnInit() {}
 }

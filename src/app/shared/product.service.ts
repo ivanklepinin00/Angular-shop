@@ -1,70 +1,66 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Product } from './interface';
+import { map } from 'rxjs/operators';
+import { FbResponse, Product } from './interfaces';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductService {
-  type = 'Phone';
-  cartProducts: Product[] = [];
 
-  constructor(private http: HttpClient) {}
+  type = 'Phone'
+  cartProducts : Product [] = []
 
-  create(product: any) {
-    return this.http.post(`${environment.fbDbUrl}/products.json`, product).pipe(
-      map((res: any) => {
-        return {
-          ...product,
-          id: res.name,
-          date: new Date(product.date),
-        };
-      })
-    );
+  constructor(private  http : HttpClient) { }
+
+  create(product) {
+    return this.http.post(`${environment.fbDbUrl}/products.json`, product)
+    .pipe(map( (res : FbResponse) => {
+      return {
+        ...product,
+        id: res.name,
+        date: new Date(product.date)
+      }
+    }))
   }
 
   getAll() {
-    return this.http.get(`${environment.fbDbUrl}/products.json`).pipe(
-      map((res: any) => {
-        return Object.keys(res).map((key: any) => ({
-          ...res[key],
-          id: key,
-          date: new Date(res[key].date),
-        }));
-      })
-    );
+    return this.http.get(`${environment.fbDbUrl}/products.json`)
+    .pipe( map ( res => {
+      return Object.keys(res)
+      .map( key => ({
+        ...res[key],
+        id: key,
+        date: new Date(res[key].date)
+      }))
+    }))
   }
 
   getById(id) {
-    return this.http.get(`${environment.fbDbUrl}/products/${id}.json`).pipe(
-      map((res: Product) => {
-        return {
-          ...res,
-          id,
-          date: new Date(res.date),
-        };
-      })
-    );
+    return this.http.get(`${environment.fbDbUrl}/products/${id}.json`)
+    .pipe( map ( (res: Product) => {
+      return {
+        ...res,
+        id,
+        date: new Date(res.date)
+      }
+    }))
   }
 
-  remove(id) {
-    return this.http.delete(`${environment.fbDbUrl}/products/${id}.json`);
+  remove (id) {
+    return this.http.delete(`${environment.fbDbUrl}/products/${id}.json`)
   }
 
   update(product: Product) {
-    return this.http.patch(
-      `${environment.fbDbUrl}/products/${product.id}.json`,
-      product
-    );
+    return this.http.patch(`${environment.fbDbUrl}/products/${product.id}.json`, product)
   }
 
-  setType(type) {
-    this.type = type;
+  setType (type) {
+    this.type = type
   }
 
-  addProduct(product) {
-    this.cartProducts.push(product);
+  addProduct (product) {
+    this.cartProducts.push(product)
   }
 }

@@ -1,13 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from './interface';
+import { Product } from './interfaces';
 
 @Pipe({
-  name: 'sorting',
+  name: 'sorting'
 })
 export class SortingPipe implements PipeTransform {
+
   transform(products: Product[], type = ''): any {
-    return products.filter((product) => {
-      return product.type == type;
-    });
+
+    return products.filter( product => {
+      return product.type == type
+    })
   }
+
 }

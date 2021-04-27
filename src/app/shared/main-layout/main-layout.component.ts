@@ -1,30 +1,37 @@
-import { ProductService } from './../product.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss'],
+  styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  type = 'Phone';
 
-  constructor(private router: Router, private productServ: ProductService) {}
+  type = 'Phone'
 
-  ngOnInit(): void {}
+  constructor(
+    private router: Router,
+    private productServ: ProductService
+  ) { }
 
-  setType(type) {
-    this.type = type;
+  ngOnInit() {
+  }
 
-    if (this.type !== 'Cart') {
+  setType (type) {
+    this.type = type
+
+    if ( this.type !=='Cart') {
       this.router.navigate(['/'], {
         queryParams: {
-          type: this.type,
-        },
-      });
+          type : this.type
+        }
+      })
 
-      this.productServ.setType(this.type);
+      this.productServ.setType(this.type)
+
     }
   }
+
 }

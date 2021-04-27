@@ -1,23 +1,39 @@
-import { Router } from '@angular/router';
-import { ProductService } from './../../shared/product.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ProductService } from 'src/app/shared/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-page',
   templateUrl: './add-page.component.html',
-  styleUrls: ['./add-page.component.scss'],
+  styleUrls: ['./add-page.component.scss']
 })
 export class AddPageComponent implements OnInit {
-  form: FormGroup;
-  submited = false;
+
+  form: FormGroup
+  submitted = false
+
+  constructor(
+    private productServ: ProductService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    this.form = new FormGroup({
+      type: new FormControl(null, Validators.required),
+      title: new FormControl(null, Validators.required),
+      photo: new FormControl(null, Validators.required),
+      info: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+    })
+  }
 
   submit() {
     if (this.form.invalid) {
-      return;
+      return
     }
 
-    this.submited = true;
+    this.submitted = true
 
     const product = {
       type: this.form.value.type,
@@ -25,25 +41,15 @@ export class AddPageComponent implements OnInit {
       photo: this.form.value.photo,
       info: this.form.value.info,
       price: this.form.value.price,
-      date: new Date(),
-    };
+      date: new Date()
+    }
 
-    this.ProductServ.create(product).subscribe((res) => {
-      this.form.reset();
-      this.submited = false;
-      this.router.navigate(['/']);
-    });
+    console.log(this.form)
+    this.productServ.create(product).subscribe( res => {
+      this.form.reset()
+      this.submitted = false
+      this.router.navigate(['/'])
+    })
   }
 
-  constructor(private ProductServ: ProductService, private router: Router) {
-    this.form = new FormGroup({
-      type: new FormControl(null, Validators.required),
-      title: new FormControl(null, Validators.required),
-      photo: new FormControl(null, Validators.required),
-      info: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
-    });
-  }
-
-  ngOnInit(): void {}
 }
