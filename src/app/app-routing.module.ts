@@ -1,9 +1,9 @@
-import { CartPageComponent } from './cart-page/cart-page.component';
-import { ProductPageComponent } from './product-page/product-page.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { ProductPageComponent } from './product-page/product-page.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
 
 const routes: Routes = [
   {
@@ -18,8 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () =>
-      import('./admin/admin.module').then((m) => m.AdminModule),
+    loadChildren: './admin/admin.module#AdminModule',
   },
 ];
 

@@ -10,6 +10,8 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { QuillModule } from 'ngx-quill';
+import { ProductComponent } from './product/product.component';
+import { SortingPipe } from './shared/sorting.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { QuillModule } from 'ngx-quill';
     MainPageComponent,
     ProductPageComponent,
     CartPageComponent,
+    ProductComponent,
+    SortingPipe,
   ],
   imports: [
     BrowserModule,

@@ -42,7 +42,6 @@ export class AuthService {
   }
 
   logout() {
-    console.log('saddsa');
     this.setToken(null);
   }
 
