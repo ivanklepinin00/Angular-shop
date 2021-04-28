@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 @import "~quill/dist/quill.snow.css";
-
 
 :root {
   --primary-color: #000000;
@@ -17,10 +16,11 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
+  min-width: 480px;
   color: #333;
 }
 
@@ -32,7 +32,6 @@ a {
   &:hover {
     color: #666;
   }
-
 }
 
 ul {
@@ -94,7 +93,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 
   &:disabled {
     cursor: not-allowed;
@@ -204,7 +203,7 @@ img {
 .form-control {
   display: block;
   color: #888;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 
   .validation {
     color: var(--danger-color);
@@ -221,7 +220,7 @@ textarea {
   border: 1px solid #ccc;
 }
 
-input[type='submit'],
+input[type="submit"],
 button {
   font: inherit;
 }
@@ -233,8 +232,8 @@ table {
 
 table th,
 table td {
-  padding: 1rem;
-  text-align: left;
+  padding: 0.6rem;
+  text-align: center;
 }
 
 table th {
@@ -262,10 +261,11 @@ table th {
 
   ul {
     display: flex;
+    align-items: center;
   }
 
   li.active a {
-    color:  #fff;
+    color: #fff;
     font-weight: bold;
     cursor: default;
     opacity: 1;
@@ -275,11 +275,29 @@ table th {
     color: #fff;
     padding: 0.45rem;
     margin: 0 0.25rem;
-    opacity: .7;
+    opacity: 0.7;
 
     &:hover {
       color: var(--light-color);
       opacity: 1;
     }
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar {
+    padding: 0.7rem 0;
+    z-index: 1;
+    width: 100%;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    height: 3rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  table th,
+  table td {
+    padding: 0.2rem;
   }
 }

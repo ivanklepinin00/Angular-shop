@@ -1,44 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/shared/product.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { ProductService } from "src/app/shared/product.service";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-dashboard-page',
-  templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.scss']
+  selector: "app-dashboard-page",
+  templateUrl: "./dashboard-page.component.html",
+  styleUrls: ["./dashboard-page.component.scss"],
 })
 export class DashboardPageComponent implements OnInit {
+  products = [];
+  pSub: Subscription;
+  rSub: Subscription;
+  productName;
 
-  products = []
-  pSub: Subscription
-  rSub: Subscription
-  productName
-
-  constructor(
-    private productServ: ProductService
-  ) { }
+  constructor(private productServ: ProductService) {}
 
   ngOnInit() {
-    this.pSub = this.productServ.getAll().subscribe( products => {
-      console.log(products)
-      this.products = products
-    })
+    this.pSub = this.productServ.getAll().subscribe((products) => {
+      this.products = products;
+    });
   }
 
   ngOnDesroy() {
     if (this.pSub) {
-      this.pSub.unsubscribe()
+      this.pSub.unsubscribe();
     }
 
     if (this.rSub) {
-      this.rSub.unsubscribe()
+      this.rSub.unsubscribe();
     }
   }
 
-  remove (id) {
-    this.rSub = this.productServ.remove(id).subscribe( () => {
-      this.products = this.products.filter( product => product.id !== id)
-    })
+  remove(id) {
+    this.rSub = this.productServ.remove(id).subscribe(() => {
+      this.products = this.products.filter((product) => product.id !== id);
+    });
   }
-
 }
